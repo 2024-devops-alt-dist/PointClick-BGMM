@@ -7,9 +7,9 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const objects = [];
 const objectTypes = [
-	{ name: "pinata", point: 1, img: "/images/pinata.svg" },
-	{ name: "calavera", point: 5, img: "/images/pinata.svg" },
-	{ name: "cactus", point: -2, img: "/images/pinata.svg" },
+	{ name: "pinata", point: 1, img: "./images/pinata.svg" },
+	{ name: "calavera", point: 5, img: "./images/calavera.png" },
+	{ name: "cactus", point: -2, img: "./images/cactus.svg" },
 ];
 
 // buttons
@@ -24,6 +24,7 @@ const hardBtn = document.getElementById("hard-btn");
 // --- event listeners ---
 startButton.addEventListener("click", () => {
 	console.log("startButton clicked!");
+	spawnObjects(5);
 });
 // close modal
 closeWelcomeModalBtn.addEventListener("click", () => {
@@ -77,11 +78,12 @@ function updateTemps() {
 function randomPosition(max) {
 	return Math.floor(Math.random() * max);
 }
+
 function createObject() {
 	const typeRandom =
 		objectTypes[Math.floor(Math.random() * objectTypes.length)];
-	const w = "50px";
-	const h = "50px";
+	const w = 50;
+	const h = 50;
 	const object = {
 		x: randomPosition(canvas.width - w),
 		y: randomPosition(canvas.height - h),
@@ -116,4 +118,10 @@ function drawObject(object) {
 		);
 	};
 }
-createObject();
+function spawnObjects(number) {
+	objects.length = 0;
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	for (let i = 0; i < number; i++) {
+		createObject();
+	}
+}

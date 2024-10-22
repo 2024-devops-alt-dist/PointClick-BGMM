@@ -16,6 +16,19 @@
 	</head>
 
 	<body>
+		<!-- Aside Project -->
+		<div class="aside">
+			<h2>PutaClic – Version Mexicaine 🎉</h2>
+			<p>
+				Un jeu de point and click pour s'amuser et se détendre. 🇲🇽 🪅
+			</p>
+			<p><strong>Développé par :</strong></p>
+			<p>Boris</p>
+			<p>Gwen</p>
+			<p>Mathieu</p>
+			<p>Mounir</p>
+		</div>
+
 		<!-- start game modal -->
 		<div
 			id="start_game_modal"
@@ -34,22 +47,28 @@
 			</div>
 		</div>
 
-		<!-- buttons for selecting the difficulty level -->
-		<div class="difficulty-selectors">
-			<button id="easy-btn">¡Chiquito!</button>
-			<button id="medium-btn">¡Valiente!</button>
-			<button id="hard-btn">¡Luchador!</button>
-		</div>
-
+		<!-- Game section -->
 		<div class="game">
 			<button id="start" class="start">Commencer</button>
 			<div class="game-infos">
 				<span class="score">Score : 0</span>
+				<span class="best-score">Best score : 0</span>
 				<span class="time">Temps : 0</span>
 			</div>
+			<div class="container">
+				<canvas id="game-canva" width="500" height="400"></canvas>
+			</div>
 		</div>
-		<div class="container">
-			<canvas id="game-canva" width="500" height="400"></canvas>
+
+		<!-- Information Section -->
+		<div class="info">
+			<h2>Information</h2>
+			<p>
+				Le but du jeu est de cliquer sur les objets qui apparaissent à
+				l'écran. Chaque clic vous rapporte des points. Attention, si
+				vous cliquez sur un cactus, vous perdez des points. Le jeu se
+				termine au bout de 30 secondes. Bonne chance !
+			</p>
 		</div>
 	</body>
 </html>

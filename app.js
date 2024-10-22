@@ -33,6 +33,9 @@ let score = 0;
 let tempsRestant = 60;
 let intervalId;
 
+function startGame() {
+  intervalId = setInterval(updateTemps, 1000);
+}
 function updateScore(point) {
   score += point;
   document.getElementById("score").textContent = score;

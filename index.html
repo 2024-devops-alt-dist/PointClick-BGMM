@@ -1,36 +1,55 @@
 <!DOCTYPE html>
 <html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<meta
+			name="description"
+			content="Jeu Point Click - Exo  JS, HTML, CSS"
+		/>
+		<link rel="stylesheet" href="style.css" />
+		<script src="app.js" defer></script>
+		<title>PutaClic – Version Mexicaine 🎉</title>
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Jeu Point Click - Exo  JS, HTML, CSS" />
-    <link rel="stylesheet" href="style.css">
-    <script src="app.js" defer></script>
-    <title>PutaClic – Version Mexicaine 🎉</title>
-</head>
+	<body>
+		<!-- start game modal -->
+		<div
+			id="start_game_modal"
+			class="start-game-modal"
+			style="display: none"
+		>
+			<div class="modal-content">
+				<h2>Welcome User! ! !</h2>
+				<h3>🇲🇽 🪅</h3>
+				<button
+					id="btn_close_start_game_modal"
+					class="btn-close-start-game-modal"
+				>
+					START
+				</button>
+			</div>
+		</div>
 
-<body>
+		<!-- buttons for selecting the difficulty level -->
+		<div class="difficulty-selectors">
+			<button id="easy-btn">¡Chiquito!</button>
+			<button id="medium-btn">¡Valiente!</button>
+			<button id="hard-btn">¡Luchador!</button>
+		</div>
 
-    <!-- start game modal -->
-    <div id="start_game_modal" class="start-game-modal" style="display: none;">
-        <div class="modal-content">
-            <h2>Welcome User! ! !</h2>
-            <h3> 🇲🇽 🪅</h3>
-            <button id="btn_close_start_game_modal" class="btn-close-start-game-modal">START</button>
-        </div>
-    </div>
-
-    <div class="game">
-        <button id="start" class="start">Commencer</button>
-        <div class="game-infos">
-            <span class="score">Score : 0</span>
-            <span class="time">Temps : 0</span>
-        </div>
-    </div>
-    <div class="container">
-        <canvas id="game-canva" width="500" height="400"></canvas>
-    </div>
-</body>
-
+		<div class="game">
+			<button id="start" class="start">Commencer</button>
+			<div class="game-infos">
+				<span class="score">Score : 0</span>
+				<span class="time">Temps : 0</span>
+			</div>
+		</div>
+		<div class="container">
+			<canvas id="game-canva" width="500" height="400"></canvas>
+		</div>
+	</body>
 </html>

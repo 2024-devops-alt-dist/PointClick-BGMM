@@ -128,5 +128,16 @@ body {
     justify-content: center;
     align-items: start;
     gap: 1em;
+
+    figure {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    figure img {
+        aspect-ratio: 1/1;
+        height: 150px;
+    }
 }
 

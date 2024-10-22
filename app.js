@@ -7,9 +7,9 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const objects = [];
 const objectTypes = [
-	{ name: "pinata", point: 1, img: "./images/pinata.svg" },
+	{ name: "pinata", point: 1, img: "./images/pinata.png" },
 	{ name: "calavera", point: 5, img: "./images/calavera.png" },
-	{ name: "cactus", point: -2, img: "./images/cactus.svg" },
+	{ name: "cactus", point: -2, img: "./images/cactus.png" },
 ];
 
 // buttons
@@ -60,6 +60,9 @@ function startGame() {
 	document.getElementById("temps").textContent = tempsRestant;
 }
 
+function startGame() {
+	intervalId = setInterval(updateTemps, 1000);
+}
 function updateScore(point) {
 	score += point;
 	document.getElementById("score").textContent = score;
@@ -94,7 +97,6 @@ function createObject() {
 	};
 	object.img.src = typeRandom.img;
 	objects.push(object);
-	console.log(object);
 	drawObject(object);
 }
 // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)

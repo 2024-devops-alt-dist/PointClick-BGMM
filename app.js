@@ -25,6 +25,7 @@ const hardBtn = document.getElementById("hard-btn");
 startButton.addEventListener("click", () => {
 	console.log("startButton clicked!");
 	spawnObjects(5);
+	startGame();
 });
 // close modal
 closeWelcomeModalBtn.addEventListener("click", () => {
@@ -58,11 +59,30 @@ function startGame() {
 	tempsRestant = 60; // Reset timer
 	document.getElementById("score").textContent = score;
 	document.getElementById("temps").textContent = tempsRestant;
+
+	objects.length = 0;
+	createObjects();
+
+	intervalId = setInterval(() => {
+		// Remove existing objects
+		objects.forEach((object, index) => {
+			ctx.clearRect(object.x, object.y, object.width, object.height);
+			objects.splice(index, 1);
+		});
+
+		// Create new objects
+		createObjects();
+	}, difficultyLevels[currentDifficulty].appearanceTime);
+}
+
+function endGame() {
+	clearInterval(intervalId);
 }
 
 function startGame() {
 	intervalId = setInterval(updateTemps, 1000);
 }
+
 function updateScore(point) {
 	score += point;
 	document.getElementById("score").textContent = score;

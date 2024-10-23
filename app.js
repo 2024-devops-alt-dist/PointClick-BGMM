@@ -55,14 +55,6 @@ canvas.addEventListener("click", (e) => {
   const rect = canvas.getBoundingClientRect();
   const clientX = e.clientX - rect.left;
   const clientY = e.clientY - rect.top;
-<<<<<<< HEAD
-
-  ctx.fillStyle = "red";
-  ctx.beginPath();
-  ctx.arc(clientX, clientY, 5, 0, Math.PI * 2);
-  ctx.fill();
-=======
->>>>>>> 0298e67ca23289aab9cd1ae66cf20eac261d19b7
 
   objects.forEach((obj, i) => {
     if (
@@ -95,12 +87,8 @@ canvas.addEventListener("click", (e) => {
 // difficulty buttons
 [easyBtn, mediumBtn, hardBtn].forEach((btn) => {
   btn.addEventListener("click", () => {
-<<<<<<< HEAD
-    currentDifficulty = btn.id.split("-")[0];
-=======
     currentDifficulty = btn.id;
 
->>>>>>> 0298e67ca23289aab9cd1ae66cf20eac261d19b7
     console.log(`Selected difficulty: ${currentDifficulty}`);
   });
 });
@@ -136,10 +124,6 @@ let tempsRestant = 60;
 let intervalId;
 
 function startGame() {
-<<<<<<< HEAD
-  intervalId = setInterval(updateTemps, 1000);
-  spawnObjects(5);
-=======
   tempsRestant = 60;
   clearInterval(intervalId);
   clearInterval(intervalIdObject);
@@ -154,7 +138,6 @@ function startGame() {
   intervalId = setInterval(updateTemps, 1000);
   spawnObjects();
   intervalIdObject = setInterval(spawnObjects, appearanceTime);
->>>>>>> 0298e67ca23289aab9cd1ae66cf20eac261d19b7
 }
 
 function updateScore(point) {
@@ -168,10 +151,7 @@ function updateTemps() {
 
   if (tempsRestant == 0) {
     clearInterval(intervalId);
-<<<<<<< HEAD
-=======
     clearInterval(intervalIdObject);
->>>>>>> 0298e67ca23289aab9cd1ae66cf20eac261d19b7
     //Fin de partie
   }
 }
@@ -196,8 +176,6 @@ function createObject() {
   object.img.src = typeRandom.img;
   objects.push(object);
   drawObject(object);
-<<<<<<< HEAD
-=======
 
   setTimeout(() => {
     const i = objects.indexOf(object);
@@ -205,16 +183,12 @@ function createObject() {
       objects.splice(i, 1);
     }
   }, 3000);
->>>>>>> 0298e67ca23289aab9cd1ae66cf20eac261d19b7
 }
 
 // generate objects based on the current difficulty level
 function createObjects() {
   const { objectCount } = difficultyLevels[currentDifficulty];
-<<<<<<< HEAD
-=======
   objects.length = 0;
->>>>>>> 0298e67ca23289aab9cd1ae66cf20eac261d19b7
   for (let i = 0; i < objectCount; i++) {
     createObject();
   }
@@ -226,18 +200,11 @@ function drawObject(object) {
   };
 }
 
-<<<<<<< HEAD
-function spawnObjects(number) {
-  objects.length = 0;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (let i = 0; i < number; i++) {
-=======
 function spawnObjects() {
   const { objectCount } = difficultyLevels[currentDifficulty];
   objects.length = 0;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   for (let i = 0; i < objectCount; i++) {
->>>>>>> 0298e67ca23289aab9cd1ae66cf20eac261d19b7
     createObject();
   }
 }

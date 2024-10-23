@@ -7,20 +7,43 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const objects = [];
 const objectTypes = [
-  { name: "pinata", point: 1, img: "./images/pinata.png" },
-  { name: "calavera", point: 5, img: "./images/calavera.png" },
-  { name: "cactus", point: -2, img: "./images/cactus.png" },
+  {
+    name: "pinata",
+    point: 1,
+    img: "./images/pinata.png",
+    musique: "/musiques/gun.mp3",
+  },
+  {
+    name: "calavera",
+    point: 5,
+    img: "./images/calavera.png",
+    musique: "/musiques/gun.mp3",
+  },
+  {
+    name: "cactus",
+    point: -2,
+    img: "./images/cactus.png",
+    musique: "/musiques/ouch.mp3",
+  },
 ];
+// Musica
+let audio = new Audio("musiques/Jarabes.mp3");
 
 // buttons
 const startButton = document.getElementById("start");
 const closeWelcomeModalBtn = document.getElementById(
   "btn_close_start_game_modal"
 );
-const easyBtn = document.getElementById("easy-btn");
-const mediumBtn = document.getElementById("medium-btn");
-const hardBtn = document.getElementById("hard-btn");
+const easyBtn = document.getElementById("chiquito");
+const mediumBtn = document.getElementById("valiente");
+const hardBtn = document.getElementById("luchador");
 
+// --- event listeners ---
+startButton.addEventListener("click", () => {
+  console.log("startButton clicked!");
+  audio.play();
+  startGame();
+});
 // close modal
 closeWelcomeModalBtn.addEventListener("click", () => {
   document.getElementById("start_game_modal").style.display = "none";
@@ -40,12 +63,23 @@ canvas.addEventListener("click", (e) => {
       clientY >= obj.y &&
       clientY <= obj.y + obj.height
     ) {
+      let soundEffect = new Audio(obj.type.musique);
+      soundEffect.play();
       updateScore(obj.type.point);
       objects.splice(i, 1);
       ctx.clearRect(obj.x, obj.y, obj.width, obj.height);
     }
   });
 });
+// difficulty buttons
+[easyBtn, mediumBtn, hardBtn].forEach((btn) => {
+  btn.addEventListener("click", () => {
+    currentDifficulty = btn.id;
+
+    console.log(`Selected difficulty: ${currentDifficulty}`);
+  });
+});
+
 // difficulty levels
 const difficultyLevels = {
   chiquito: { objectCount: 3, appearanceTime: 2000 }, // Easy

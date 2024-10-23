@@ -2,6 +2,10 @@
 const gameContainer = document.querySelector(".game");
 const time = document.querySelector(".game-infos .time");
 const bestScore = document.querySelector(".best-score");
+const endGameModal = document.getElementById("end_game_modal");
+
+let currentBestScore = localStorage.getItem("best_score") || 0;
+
 // Canvas
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
@@ -89,7 +93,7 @@ playAgainBtn.addEventListener("click", () => {
 	endGameModal.style.display = "none";
 
 	// Re-enable game interactions
-	canvas.style.pointerEvents = "auto";
+	// canvas.style.pointerEvents = "auto";
 
 	// Start a new game
 	startGame();
@@ -130,7 +134,7 @@ let tempsRestant;
 let intervalId;
 
 function startGame() {
-	tempsRestant = 5;
+	tempsRestant = 2;
 	clearInterval(intervalId);
 	clearInterval(intervalIdObject);
 	const { appearanceTime } = difficultyLevels[currentDifficulty];
@@ -158,7 +162,7 @@ function updateTemps() {
 	if (tempsRestant === 0) {
 		clearInterval(intervalId);
 		clearInterval(intervalIdObject);
-		let currentBestScore = localStorage.getItem("best_score");
+
 		if (
 			currentBestScore === null ||
 			parseInt(currentBestScore) < score
@@ -169,8 +173,9 @@ function updateTemps() {
 
 		bestScore.textContent = "Best score : " + currentBestScore;
 		console.log(bestScore, score);
-		score = 0;
 
+		endGame();
+		score = 0; // Reset the score after showing the modal
 		//Fin de partie
 	}
 }
@@ -235,9 +240,11 @@ function spawnObjects() {
 
 function endGame() {
 	// Show the end game modal
-	endGameModal.style.display = "block";
-	finalScoreDisplay.textContent = score;
+	endGameModal.style.display = "flex";
+	document.getElementById("final-score").textContent = score;
+	document.getElementById("best-score-modal").textContent =
+		currentBestScore;
 
 	// Disable game interactions
-	canvas.style.pointerEvents = "none";
+	// canvas.style.pointerEvents = "none";
 }

@@ -137,7 +137,7 @@ let intervalId;
 let audio;
 
 function startGame() {
-  tempsRestant = 1;
+  tempsRestant = 60;
   clearInterval(intervalId);
   clearInterval(intervalIdObject);
   const { appearanceTime } = difficultyLevels[currentDifficulty];

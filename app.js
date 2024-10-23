@@ -2,6 +2,10 @@
 const gameContainer = document.querySelector(".game");
 const time = document.querySelector(".game-infos .time");
 const bestScore = document.querySelector(".best-score");
+const endGameModal = document.getElementById("end_game_modal");
+
+let currentBestScore = localStorage.getItem("best_score") || 0;
+
 // Canvas
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
@@ -29,12 +33,10 @@ const objectTypes = [
 
 // buttons
 const startButton = document.getElementById("start");
-const closeWelcomeModalBtn = document.getElementById(
-  "btn_close_start_game_modal"
-);
 const easyBtn = document.getElementById("chiquito");
 const mediumBtn = document.getElementById("valiente");
 const hardBtn = document.getElementById("luchador");
+const playAgainBtn = document.getElementById("play_again_btn");
 
 // --- event listeners ---
 startButton.addEventListener("click", (e) => {
@@ -134,7 +136,7 @@ let intervalIdObject;
 
 // Score and timing
 let score = 0;
-let tempsRestant = 60;
+let tempsRestant;
 let intervalId;
 
 function finishGame() {

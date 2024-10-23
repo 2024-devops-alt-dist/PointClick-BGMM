@@ -23,12 +23,32 @@ const closeWelcomeModalBtn = document.getElementById(
 // event listeners
 startButton.addEventListener("click", () => {
   console.log("startButton clicked!");
-  audio.play();
-  spawnObjects(5);
+  startGame();
 });
 // close modal
 closeWelcomeModalBtn.addEventListener("click", () => {
   document.getElementById("start_game_modal").style.display = "none";
+});
+
+canvas.addEventListener("click", (e) => {
+  console.log(e);
+
+  const rect = canvas.getBoundingClientRect();
+  const clientX = e.clientX - rect.left;
+  const clientY = e.clientY - rect.top;
+
+  objects.forEach((obj, i) => {
+    if (
+      clientX >= obj.x &&
+      clientX <= obj.x + obj.width &&
+      clientY >= obj.y &&
+      clientY <= obj.y + obj.height
+    ) {
+      updateScore(obj.type.point);
+      objects.splice(i, 1);
+      ctx.clearRect(obj.x, obj.y, obj.width, obj.height);
+    }
+  });
 });
 
 // Score and timming
@@ -39,15 +59,16 @@ let intervalId;
 
 function startGame() {
   intervalId = setInterval(updateTemps, 1000);
+  spawnObjects(5);
 }
 function updateScore(point) {
   score += point;
-  document.getElementById("score").textContent = score;
+  document.querySelector(".score").textContent = score;
 }
 
 function updateTemps() {
   tempsRestant--;
-  document.getElementById("temps").textContent = tempsRestant;
+  document.querySelector(".time").textContent = tempsRestant;
 
   if (tempsRestant == 0) {
     clearInterval(intervalId);

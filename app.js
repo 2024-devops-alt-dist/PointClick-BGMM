@@ -37,10 +37,22 @@ const mediumBtn = document.getElementById("valiente");
 const hardBtn = document.getElementById("luchador");
 
 // --- event listeners ---
-startButton.addEventListener("click", () => {
+startButton.addEventListener("click", (e) => {
+  console.log(e.target.id);
+
+  if (startButton.className !== "stop") {
+    startButton.textContent = "Stop";
+    startButton.classList.add("stop");
+    startButton.classList.remove("start");
+    startGame();
+  } else {
+    startButton.classList.remove("stop");
+    startButton.classList.add("start");
+    startButton.textContent = "Commencez";
+    finishGame();
+  }
   document.querySelector(".score").textContent = "Score : 0";
   console.log("startButton clicked!");
-  startGame();
 });
 // close modal
 closeWelcomeModalBtn.addEventListener("click", () => {
@@ -120,16 +132,24 @@ let intervalIdObject;
   });
 });
 
-// --- event listeners ---
-startButton.addEventListener("click", () => {
-  console.log("startButton clicked!");
-  startGame();
-});
-
 // Score and timing
 let score = 0;
 let tempsRestant = 60;
 let intervalId;
+
+function finishGame() {
+  clearInterval(intervalId);
+  clearInterval(intervalIdObject);
+  startButton.style.textContent = "Commencer";
+  let currentBestScore = localStorage.getItem("best_score");
+  if (currentBestScore === null || parseInt(currentBestScore) < score) {
+    currentBestScore = score;
+    localStorage.setItem("best_score", currentBestScore);
+  }
+  bestScore.textContent = "Best score : " + currentBestScore;
+  console.log(bestScore, score);
+  score = 0;
+}
 
 function startGame() {
   tempsRestant = 60;
@@ -158,19 +178,7 @@ function updateTemps() {
   document.querySelector(".time").textContent = "Temps : " + tempsRestant;
 
   if (tempsRestant === 0) {
-    clearInterval(intervalId);
-    clearInterval(intervalIdObject);
-    let currentBestScore = localStorage.getItem("best_score");
-    if (currentBestScore === null || parseInt(currentBestScore) < score) {
-      currentBestScore = score;
-      localStorage.setItem("best_score", currentBestScore);
-    }
-
-    bestScore.textContent = "Best score : " + currentBestScore;
-    console.log(bestScore, score);
-    score = 0;
-
-    //Fin de partie
+    finishGame();
   }
 }
 

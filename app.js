@@ -1,7 +1,7 @@
 // DOM access
 const gameContainer = document.querySelector(".game");
-// const score = document.querySelector(".game_infos .score");
-const time = document.querySelector(".game_infos .time");
+// const score = document.querySelector(".game-infos .score");
+const time = document.querySelector(".game-infos .time");
 // Canva
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
@@ -54,11 +54,12 @@ let tempsRestant = 60;
 let intervalId;
 let objectIntervalId; // Interval for spawning objects
 
+// Boris's
 function startGame() {
 	score = 0; // Reset score
 	tempsRestant = 60; // Reset timer
-	document.getElementById("score").textContent = score;
-	document.getElementById("temps").textContent = tempsRestant;
+	document.querySelector(".score").textContent = score;
+	document.querySelector(".time").textContent = tempsRestant;
 
 	objects.length = 0;
 	createObjects();
@@ -79,8 +80,9 @@ function endGame() {
 	clearInterval(intervalId);
 }
 
+// Mounir's
 function startGame() {
-	intervalId = setInterval(updateTemps, 1000);
+	// intervalId = setInterval(updateTemps, 1000);
 }
 
 function updateScore(point) {

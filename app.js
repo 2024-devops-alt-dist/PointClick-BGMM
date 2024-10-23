@@ -2,10 +2,7 @@
 const gameContainer = document.querySelector(".game");
 const time = document.querySelector(".game-infos .time");
 const bestScore = document.querySelector(".best-score");
-const endGameModal = document.getElementById("end_game_modal");
-const finalScoreDisplay = document.getElementById("final-score");
-
-// Canva
+// Canvas
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const objects = [];
@@ -29,8 +26,6 @@ const objectTypes = [
 		musique: "/musiques/ouch.mp3",
 	},
 ];
-// Musica
-let audio = new Audio("musiques/Jarabes.mp3");
 
 // buttons
 const startButton = document.getElementById("start");
@@ -41,8 +36,8 @@ const playAgainBtn = document.getElementById("play_again_btn");
 
 // --- event listeners ---
 startButton.addEventListener("click", () => {
+	document.querySelector(".score").textContent = "Score : 0";
 	console.log("startButton clicked!");
-	audio.play();
 	startGame();
 });
 
@@ -110,9 +105,21 @@ playAgainBtn
 
 // difficulty levels
 const difficultyLevels = {
-	chiquito: { objectCount: 3, appearanceTime: 2000 }, // Easy
-	valiente: { objectCount: 5, appearanceTime: 1500 }, // Intermediate
-	luchador: { objectCount: 7, appearanceTime: 1000 }, // Difficult
+	chiquito: {
+		objectCount: 3,
+		appearanceTime: 2000,
+		musique: "musiques/Guadalajara.mp3",
+	}, // Easy
+	valiente: {
+		objectCount: 5,
+		appearanceTime: 1500,
+		musique: "musiques/BandaEspuelaDeOro.mp3",
+	}, // Intermediate
+	luchador: {
+		objectCount: 7,
+		appearanceTime: 1000,
+		musique: "musiques/Jarabes.mp3",
+	}, // Difficult
 };
 // difficulty buttons
 let currentDifficulty = "chiquito"; // Default to ¡Chiquito! difficulty
@@ -120,9 +127,7 @@ let intervalIdObject;
 
 [easyBtn, mediumBtn, hardBtn].forEach((btn) => {
 	btn.addEventListener("click", () => {
-		console.log(btn);
-
-		currentDifficulty = btn.id.split("-")[0];
+		currentDifficulty = btn.id;
 		console.log(`Selected difficulty: ${currentDifficulty}`);
 	});
 });
@@ -142,14 +147,14 @@ function startGame() {
 	tempsRestant = 60;
 	clearInterval(intervalId);
 	clearInterval(intervalIdObject);
-	let difficulty = difficultyLevels[currentDifficulty];
-	if (!difficulty) {
-		console.error("error", difficulty);
-		return;
-	}
-	const { appearanceTime } = difficulty;
-	console.log(difficulty);
+	const { appearanceTime } = difficultyLevels[currentDifficulty];
 
+	// Musica
+	let audio = new Audio(difficultyLevels[currentDifficulty].musique);
+	audio.play();
+	audio.loop = true;
+
+	tempsRestant = 60;
 	intervalId = setInterval(updateTemps, 1000);
 	spawnObjects();
 	intervalIdObject = setInterval(spawnObjects, appearanceTime);
@@ -162,18 +167,31 @@ function updateScore(point) {
 
 function updateTemps() {
 	tempsRestant--;
-	document.querySelector(".time").textContent = tempsRestant;
+	document.querySelector(".time").textContent =
+		"Temps : " + tempsRestant;
 
-	if (tempsRestant == 0) {
+	if (tempsRestant === 0) {
 		clearInterval(intervalId);
 		clearInterval(intervalIdObject);
+		let currentBestScore = localStorage.getItem("best_score");
+		if (
+			currentBestScore === null ||
+			parseInt(currentBestScore) < score
+		) {
+			currentBestScore = score;
+			localStorage.setItem("best_score", currentBestScore);
+		}
+
+		bestScore.textContent = "Best score : " + currentBestScore;
+		console.log(bestScore, score);
+		score = 0;
+
 		//Fin de partie
-		endGame();
 	}
 }
 
-function randomPosition(max) {
-	return Math.floor(Math.random() * max);
+function randomPosition(max, size) {
+	return Math.floor(Math.random() * (max - size));
 }
 
 function createObject() {
@@ -182,8 +200,8 @@ function createObject() {
 	const w = 50;
 	const h = 50;
 	const object = {
-		x: randomPosition(canvas.width - w),
-		y: randomPosition(canvas.height - h),
+		x: randomPosition(canvas.width - w, w),
+		y: randomPosition(canvas.height - h, w),
 		type: typeRandom,
 		width: w,
 		height: h,
@@ -196,6 +214,7 @@ function createObject() {
 	setTimeout(() => {
 		const i = objects.indexOf(object);
 		if (i > -1) {
+			ctx.clearRect(object.x, object.y, object.width, object.height);
 			objects.splice(i, 1);
 		}
 	}, 3000);
@@ -224,8 +243,6 @@ function drawObject(object) {
 
 function spawnObjects() {
 	const { objectCount } = difficultyLevels[currentDifficulty];
-	objects.length = 0;
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	for (let i = 0; i < objectCount; i++) {
 		createObject();
 	}

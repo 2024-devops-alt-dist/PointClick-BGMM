@@ -7,9 +7,24 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const objects = [];
 const objectTypes = [
-  { name: "pinata", point: 1, img: "./images/pinata.png" },
-  { name: "calavera", point: 5, img: "./images/calavera.png" },
-  { name: "cactus", point: -2, img: "./images/cactus.png" },
+  {
+    name: "pinata",
+    point: 1,
+    img: "./images/pinata.png",
+    musique: "/musiques/gun.mp3",
+  },
+  {
+    name: "calavera",
+    point: 5,
+    img: "./images/calavera.png",
+    musique: "/musiques/gun.mp3",
+  },
+  {
+    name: "cactus",
+    point: -2,
+    img: "./images/cactus.png",
+    musique: "/musiques/ouch.mp3",
+  },
 ];
 // Musica
 let audio = new Audio("musiques/Jarabes.mp3");
@@ -23,6 +38,7 @@ const closeWelcomeModalBtn = document.getElementById(
 // event listeners
 startButton.addEventListener("click", () => {
   console.log("startButton clicked!");
+  audio.play();
   startGame();
 });
 // close modal
@@ -44,6 +60,8 @@ canvas.addEventListener("click", (e) => {
       clientY >= obj.y &&
       clientY <= obj.y + obj.height
     ) {
+      let soundEffect = new Audio(obj.type.musique);
+      soundEffect.play();
       updateScore(obj.type.point);
       objects.splice(i, 1);
       ctx.clearRect(obj.x, obj.y, obj.width, obj.height);

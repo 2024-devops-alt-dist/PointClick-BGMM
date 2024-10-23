@@ -23,7 +23,7 @@ body {
 }
 
 /* modal overlay */
-.start-game-modal {
+.end-game-modal {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -54,17 +54,17 @@ body {
 		color: #333;
 	}
 
-	button {
-		background-color: #cc2121;
-		color: #fff;
+	.play-again-btn {
+		background-color: #4caf50;
+		color: white;
+		padding: 10px 20px;
 		border: none;
 		border-radius: 5px;
-		padding: 10px 15px;
 		cursor: pointer;
-		font-size: 16px;
+		transition: background-color 0.3s;
 
 		&:hover {
-			background-color: #a61b1b;
+			background-color: #45a049;
 			transition: background-color 0.3s ease;
 		}
 	}

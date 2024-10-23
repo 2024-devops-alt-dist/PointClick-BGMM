@@ -92,9 +92,6 @@ playAgainBtn.addEventListener("click", () => {
   // Hide the end game modal
   endGameModal.style.display = "none";
 
-  // Re-enable game interactions
-  // canvas.style.pointerEvents = "auto";
-
   // Start a new game
   startGame();
 });
@@ -241,7 +238,4 @@ function endGame() {
   endGameModal.style.display = "flex";
   document.getElementById("final-score").textContent = score;
   document.getElementById("best-score-modal").textContent = currentBestScore;
-
-  // Disable game interactions
-  // canvas.style.pointerEvents = "none";
 }

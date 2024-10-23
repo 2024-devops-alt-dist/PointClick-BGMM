@@ -136,7 +136,7 @@ function updateTemps() {
   tempsRestant--;
   document.querySelector(".time").textContent = tempsRestant;
 
-  if (tempsRestant == 0) {
+  if (tempsRestant === 0) {
     clearInterval(intervalId);
     clearInterval(intervalIdObject);
     //Fin de partie

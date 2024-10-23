@@ -2,7 +2,7 @@
 const gameContainer = document.querySelector(".game");
 const time = document.querySelector(".game-infos .time");
 const bestScore = document.querySelector(".best-score");
-// Canva
+// Canvas
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const objects = [];
@@ -40,6 +40,7 @@ const hardBtn = document.getElementById("luchador");
 
 // --- event listeners ---
 startButton.addEventListener("click", () => {
+  document.querySelector(".score").textContent = "Score : 0";
   console.log("startButton clicked!");
   audio.play();
   startGame();
@@ -92,9 +93,7 @@ let intervalIdObject;
 
 [easyBtn, mediumBtn, hardBtn].forEach((btn) => {
   btn.addEventListener("click", () => {
-    console.log(btn);
-
-    currentDifficulty = btn.id.split("-")[0];
+    currentDifficulty = btn.id;
     console.log(`Selected difficulty: ${currentDifficulty}`);
   });
 });
@@ -113,14 +112,9 @@ let intervalId;
 function startGame() {
   clearInterval(intervalId);
   clearInterval(intervalIdObject);
-  let difficulty = difficultyLevels[currentDifficulty];
-  if (!difficulty) {
-    console.error("error", difficulty);
-    return;
-  }
-  const { appearanceTime } = difficulty;
-  console.log(difficulty);
-
+  const { appearanceTime } = difficultyLevels[currentDifficulty];
+  console.log(appearanceTime);
+  tempsRestant = 60;
   intervalId = setInterval(updateTemps, 1000);
   spawnObjects();
   intervalIdObject = setInterval(spawnObjects, appearanceTime);
@@ -133,17 +127,27 @@ function updateScore(point) {
 
 function updateTemps() {
   tempsRestant--;
-  document.querySelector(".time").textContent = tempsRestant;
+  document.querySelector(".time").textContent = "Temps : " + tempsRestant;
 
   if (tempsRestant == 0) {
     clearInterval(intervalId);
     clearInterval(intervalIdObject);
+    let currentBestScore = localStorage.getItem("best_score");
+    if (currentBestScore === null || parseInt(currentBestScore) < score) {
+      currentBestScore = score;
+      localStorage.setItem("best_score", currentBestScore);
+    }
+
+    bestScore.textContent = "Best score : " + currentBestScore;
+    console.log(bestScore, score);
+    score = 0;
+
     //Fin de partie
   }
 }
 
-function randomPosition(max) {
-  return Math.floor(Math.random() * max);
+function randomPosition(max, size) {
+  return Math.floor(Math.random() * (max - size));
 }
 
 function createObject() {
@@ -152,8 +156,8 @@ function createObject() {
   const w = 50;
   const h = 50;
   const object = {
-    x: randomPosition(canvas.width - w),
-    y: randomPosition(canvas.height - h),
+    x: randomPosition(canvas.width - w, w),
+    y: randomPosition(canvas.height - h, w),
     type: typeRandom,
     width: w,
     height: h,
@@ -166,6 +170,7 @@ function createObject() {
   setTimeout(() => {
     const i = objects.indexOf(object);
     if (i > -1) {
+      ctx.clearRect(object.x, object.y, object.width, object.height);
       objects.splice(i, 1);
     }
   }, 3000);
@@ -188,8 +193,6 @@ function drawObject(object) {
 
 function spawnObjects() {
   const { objectCount } = difficultyLevels[currentDifficulty];
-  objects.length = 0;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
   for (let i = 0; i < objectCount; i++) {
     createObject();
   }

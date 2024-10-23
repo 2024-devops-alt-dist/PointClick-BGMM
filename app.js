@@ -60,9 +60,22 @@ canvas.addEventListener("click", (e) => {
 			clientY >= obj.y &&
 			clientY <= obj.y + obj.height
 		) {
+			// Confettis animation
+			confetti({
+				particleCount: 250,
+				spread: 1000,
+				origin: {
+					x: e.clientX / window.innerWidth,
+					y: e.clientY / window.innerHeight,
+				},
+			});
+
+			// Sound effect
 			let soundEffect = new Audio(obj.type.musique);
 			soundEffect.play();
 			updateScore(obj.type.point);
+
+			// Suppression object
 			objects.splice(i, 1);
 			ctx.clearRect(obj.x, obj.y, obj.width, obj.height);
 		}
@@ -126,6 +139,7 @@ let tempsRestant = 60;
 let intervalId;
 
 function startGame() {
+	tempsRestant = 60;
 	clearInterval(intervalId);
 	clearInterval(intervalIdObject);
 	let difficulty = difficultyLevels[currentDifficulty];

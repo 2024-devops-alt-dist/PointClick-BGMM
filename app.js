@@ -134,7 +134,7 @@ let tempsRestant;
 let intervalId;
 
 function startGame() {
-	tempsRestant = 2;
+	tempsRestant = 60;
 	clearInterval(intervalId);
 	clearInterval(intervalIdObject);
 	const { appearanceTime } = difficultyLevels[currentDifficulty];

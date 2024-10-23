@@ -26,8 +26,6 @@ const objectTypes = [
     musique: "/musiques/ouch.mp3",
   },
 ];
-// Musica
-let audio = new Audio("musiques/Jarabes.mp3");
 
 // buttons
 const startButton = document.getElementById("start");
@@ -42,7 +40,6 @@ const hardBtn = document.getElementById("luchador");
 startButton.addEventListener("click", () => {
   document.querySelector(".score").textContent = "Score : 0";
   console.log("startButton clicked!");
-  audio.play();
   startGame();
 });
 // close modal
@@ -64,9 +61,22 @@ canvas.addEventListener("click", (e) => {
       clientY >= obj.y &&
       clientY <= obj.y + obj.height
     ) {
+      // Confettis animation
+      confetti({
+        particleCount: 250,
+        spread: 1000,
+        origin: {
+          x: e.clientX / window.innerWidth,
+          y: e.clientY / window.innerHeight,
+        },
+      });
+
+      // Sound effect
       let soundEffect = new Audio(obj.type.musique);
       soundEffect.play();
       updateScore(obj.type.point);
+
+      // Suppression object
       objects.splice(i, 1);
       ctx.clearRect(obj.x, obj.y, obj.width, obj.height);
     }
@@ -83,9 +93,21 @@ canvas.addEventListener("click", (e) => {
 
 // difficulty levels
 const difficultyLevels = {
-  chiquito: { objectCount: 3, appearanceTime: 2000 }, // Easy
-  valiente: { objectCount: 5, appearanceTime: 1500 }, // Intermediate
-  luchador: { objectCount: 7, appearanceTime: 1000 }, // Difficult
+  chiquito: {
+    objectCount: 3,
+    appearanceTime: 2000,
+    musique: "musiques/Guadalajara.mp3",
+  }, // Easy
+  valiente: {
+    objectCount: 5,
+    appearanceTime: 1500,
+    musique: "musiques/BandaEspuelaDeOro.mp3",
+  }, // Intermediate
+  luchador: {
+    objectCount: 7,
+    appearanceTime: 1000,
+    musique: "musiques/Jarabes.mp3",
+  }, // Difficult
 };
 // difficulty buttons
 let currentDifficulty = "chiquito"; // Default to ¡Chiquito! difficulty
@@ -110,10 +132,16 @@ let tempsRestant = 60;
 let intervalId;
 
 function startGame() {
+  tempsRestant = 60;
   clearInterval(intervalId);
   clearInterval(intervalIdObject);
   const { appearanceTime } = difficultyLevels[currentDifficulty];
-  console.log(appearanceTime);
+
+  // Musica
+  let audio = new Audio(difficultyLevels[currentDifficulty].musique);
+  audio.play();
+  audio.loop = true;
+
   tempsRestant = 60;
   intervalId = setInterval(updateTemps, 1000);
   spawnObjects();
@@ -129,7 +157,7 @@ function updateTemps() {
   tempsRestant--;
   document.querySelector(".time").textContent = "Temps : " + tempsRestant;
 
-  if (tempsRestant == 0) {
+  if (tempsRestant === 0) {
     clearInterval(intervalId);
     clearInterval(intervalIdObject);
     let currentBestScore = localStorage.getItem("best_score");

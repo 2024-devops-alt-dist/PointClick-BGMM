@@ -110,20 +110,20 @@ body {
 		}
 	}
 
-	.container {
-		width: 80%;
-		height: 400px;
-		border: 1px solid #999;
-		border-radius: 10px;
-		cursor: crosshair;
-		position: relative;
-		padding: 20px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		overflow: hidden;
-		background-color: #fff;
-	}
+    .container{
+        width: 500px;
+        height: 400px;
+        border: 1px solid #999;
+        border-radius: 10px;
+        cursor: crosshair;
+        position: relative;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background-color: #fff;
+    }
 }
 
 .info {

@@ -1,6 +1,5 @@
 // DOM access
 const gameContainer = document.querySelector(".game");
-// const score = document.querySelector(".game-infos .score");
 const time = document.querySelector(".game-infos .time");
 // Canva
 const canvas = document.querySelector("canvas");
@@ -72,35 +71,7 @@ let currentDifficulty = "chiquito"; // Default to ¡Chiquito! difficulty
 let score = 0;
 let tempsRestant = 60;
 let intervalId;
-let objectIntervalId; // Interval for spawning objects
 
-// Boris's
-function startGame() {
-	score = 0; // Reset score
-	tempsRestant = 60; // Reset timer
-	document.querySelector(".score").textContent = score;
-	document.querySelector(".time").textContent = tempsRestant;
-
-	objects.length = 0;
-	createObjects();
-
-	intervalId = setInterval(() => {
-		// Remove existing objects
-		objects.forEach((object, index) => {
-			ctx.clearRect(object.x, object.y, object.width, object.height);
-			objects.splice(index, 1);
-		});
-
-		// Create new objects
-		createObjects();
-	}, difficultyLevels[currentDifficulty].appearanceTime);
-}
-
-function endGame() {
-	clearInterval(intervalId);
-}
-
-// Mounir's
 function startGame() {
 	intervalId = setInterval(updateTemps, 1000);
 	spawnObjects(5);
@@ -142,7 +113,6 @@ function createObject() {
 	objects.push(object);
 	drawObject(object);
 }
-// drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 
 // generate objects based on the current difficulty level
 function createObjects() {
@@ -163,6 +133,7 @@ function drawObject(object) {
 		);
 	};
 }
+
 function spawnObjects(number) {
 	objects.length = 0;
 	ctx.clearRect(0, 0, canvas.width, canvas.height);

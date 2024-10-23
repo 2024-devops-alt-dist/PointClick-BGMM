@@ -8,7 +8,7 @@
 		/>
 		<meta
 			name="description"
-			content="Jeu Point Click - Exo  JS, HTML, CSS"
+			content="Jeu Point Click - Exo JS, HTML, CSS"
 		/>
 		<link rel="stylesheet" href="style.css" />
 		<script src="app.js" defer></script>
@@ -55,6 +55,17 @@
 				<span class="best-score">Best score : 0</span>
 				<span class="time">Temps : 0</span>
 			</div>
+
+			<!-- Difficulty level selection -->
+			<div class="difficulty-selection">
+				<h3>Sélectionnez la difficulté</h3>
+				<button id="easy-btn" class="difficulty-btn">Facile</button>
+				<button id="medium-btn" class="difficulty-btn">Moyen</button>
+				<button id="hard-btn" class="difficulty-btn">
+					Difficile
+				</button>
+			</div>
+
 			<div class="container">
 				<canvas id="game-canva" width="500" height="400"></canvas>
 			</div>

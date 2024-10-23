@@ -132,11 +132,11 @@ startButton.addEventListener("click", () => {
 
 // Score and timing
 let score = 0;
-let tempsRestant = 60;
+let tempsRestant;
 let intervalId;
 
 function startGame() {
-	tempsRestant = 60;
+	tempsRestant = 5;
 	clearInterval(intervalId);
 	clearInterval(intervalIdObject);
 	const { appearanceTime } = difficultyLevels[currentDifficulty];
@@ -146,7 +146,6 @@ function startGame() {
 	audio.play();
 	audio.loop = true;
 
-	tempsRestant = 60;
 	intervalId = setInterval(updateTemps, 1000);
 	spawnObjects();
 	intervalIdObject = setInterval(spawnObjects, appearanceTime);

@@ -111,6 +111,7 @@ let tempsRestant = 60;
 let intervalId;
 
 function startGame() {
+  tempsRestant = 60;
   clearInterval(intervalId);
   clearInterval(intervalIdObject);
   let difficulty = difficultyLevels[currentDifficulty];

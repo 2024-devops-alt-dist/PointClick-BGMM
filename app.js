@@ -29,9 +29,9 @@ const objectTypes = [
 
 // buttons
 const startButton = document.getElementById("start");
-const easyBtn = document.getElementById("easy-btn");
-const mediumBtn = document.getElementById("medium-btn");
-const hardBtn = document.getElementById("hard-btn");
+const easyBtn = document.getElementById("chiquito");
+const mediumBtn = document.getElementById("valiente");
+const hardBtn = document.getElementById("luchador");
 const playAgainBtn = document.getElementById("play_again_btn");
 
 // --- event listeners ---
@@ -78,30 +78,22 @@ canvas.addEventListener("click", (e) => {
 });
 
 // close modal and play again
-playAgainBtn
-	.addEventListener("click", () => {
-		// Reset game state
-		score = 0;
-		tempsRestant = 60;
-		updateScore(score);
-		updateTemps();
+playAgainBtn.addEventListener("click", () => {
+	// Reset game state
+	score = 0;
+	tempsRestant = 60;
+	updateScore(score);
+	updateTemps();
 
-		// Hide the end game modal
-		endGameModal.style.display = "none";
+	// Hide the end game modal
+	endGameModal.style.display = "none";
 
-		// Re-enable game interactions
-		canvas.style.pointerEvents = "auto";
+	// Re-enable game interactions
+	canvas.style.pointerEvents = "auto";
 
-		// Start a new game
-		startGame();
-	})
-
-	[(easyBtn, mediumBtn, hardBtn)].forEach((btn) => {
-		btn.addEventListener("click", () => {
-			currentDifficulty = btn.id;
-			console.log(`Selected difficulty: ${currentDifficulty}`);
-		});
-	});
+	// Start a new game
+	startGame();
+});
 
 // difficulty levels
 const difficultyLevels = {

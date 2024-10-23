@@ -124,12 +124,6 @@ let intervalIdObject;
 	});
 });
 
-// --- event listeners ---
-startButton.addEventListener("click", () => {
-	console.log("startButton clicked!");
-	startGame();
-});
-
 // Score and timing
 let score = 0;
 let tempsRestant;

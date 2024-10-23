@@ -26,8 +26,6 @@ const objectTypes = [
     musique: "/musiques/ouch.mp3",
   },
 ];
-// Musica
-let audio = new Audio("musiques/Jarabes.mp3");
 
 // buttons
 const startButton = document.getElementById("start");
@@ -41,7 +39,6 @@ const hardBtn = document.getElementById("luchador");
 // --- event listeners ---
 startButton.addEventListener("click", () => {
   console.log("startButton clicked!");
-  audio.play();
   startGame();
 });
 // close modal
@@ -95,9 +92,21 @@ canvas.addEventListener("click", (e) => {
 
 // difficulty levels
 const difficultyLevels = {
-  chiquito: { objectCount: 3, appearanceTime: 2000 }, // Easy
-  valiente: { objectCount: 5, appearanceTime: 1500 }, // Intermediate
-  luchador: { objectCount: 7, appearanceTime: 1000 }, // Difficult
+  chiquito: {
+    objectCount: 3,
+    appearanceTime: 2000,
+    musique: "musiques/Guadalajara.mp3",
+  }, // Easy
+  valiente: {
+    objectCount: 5,
+    appearanceTime: 1500,
+    musique: "musiques/BandaEspuelaDeOro.mp3",
+  }, // Intermediate
+  luchador: {
+    objectCount: 7,
+    appearanceTime: 1000,
+    musique: "musiques/Jarabes.mp3",
+  }, // Difficult
 };
 // difficulty buttons
 let currentDifficulty = "chiquito"; // Default to ¡Chiquito! difficulty
@@ -128,6 +137,12 @@ function startGame() {
   clearInterval(intervalId);
   clearInterval(intervalIdObject);
   let difficulty = difficultyLevels[currentDifficulty];
+
+  // Musica
+  let audio = new Audio(difficultyLevels[currentDifficulty].musique);
+  audio.play();
+  audio.loop = true;
+
   if (!difficulty) {
     console.error("error", difficulty);
     return;

@@ -11,6 +11,8 @@ const objectTypes = [
   { name: "calavera", point: 5, img: "./images/calavera.png" },
   { name: "cactus", point: -2, img: "./images/cactus.png" },
 ];
+// Musica
+let audio = new Audio("musiques/Jarabes.mp3");
 
 // buttons
 const startButton = document.getElementById("start");
@@ -21,6 +23,7 @@ const closeWelcomeModalBtn = document.getElementById(
 // event listeners
 startButton.addEventListener("click", () => {
   console.log("startButton clicked!");
+  audio.play();
   spawnObjects(5);
 });
 // close modal

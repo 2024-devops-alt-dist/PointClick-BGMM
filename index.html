@@ -1,91 +1,105 @@
 <!DOCTYPE html>
 <html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<meta
+			name="description"
+			content="Jeu Point Click - Exo JS, HTML, CSS"
+		/>
+		<link rel="stylesheet" href="style.css" />
+		<script src="app.js" defer></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"
+			defer
+		></script>
+		<title>PutaClic – Version Mexicaine 🎉</title>
+	</head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Jeu Point Click - Exo JS, HTML, CSS" />
-    <link rel="stylesheet" href="style.css" />
-    <script src="app.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js" defer></script>
-    <title>PutaClic – Version Mexicaine 🎉</title>
-</head>
+	<body>
+		<!-- Aside Project -->
+		<div class="aside">
+			<h2>PutaClic – Version Mexicaine 🎉</h2>
+			<p>
+				Un jeu de point and click pour s'amuser et se détendre. 🇲🇽 🪅
+			</p>
+			<p><strong>Développé par :</strong></p>
+			<p>Boris</p>
+			<p>Gwen</p>
+			<p>Mathieu</p>
+			<p>Mounir</p>
+		</div>
 
-<body>
-    <!-- Aside Project -->
-    <div class="aside">
-        <h2>PutaClic – Version Mexicaine 🎉</h2>
-        <p>
-            Un jeu de point and click pour s'amuser et se détendre. 🇲🇽 🪅
-        </p>
-        <p><strong>Développé par :</strong></p>
-        <p>Boris</p>
-        <p>Gwen</p>
-        <p>Mathieu</p>
-        <p>Mounir</p>
-    </div>
+		<!-- End game modal -->
+		<div
+			id="end_game_modal"
+			class="end-game-modal"
+			style="display: none"
+		>
+			<div class="modal-content">
+				<h2>Merci d'avoir joué !</h2>
+				<h3>
+					Votre score final est : <span id="final-score"></span>
+				</h3>
+				<h3>Meilleur score : <span id="best-score-modal"></span></h3>
+				<button id="play_again_btn" class="play-again-btn">
+					Rejouer
+				</button>
+			</div>
+		</div>
 
-    <!-- start game modal -->
-    <div id="start_game_modal" class="start-game-modal" style="display: none">
-        <div class="modal-content">
-            <h2>Welcome User! ! !</h2>
-            <h3>🇲🇽 🪅</h3>
-            <button id="btn_close_start_game_modal" class="btn-close-start-game-modal">
-                START
-            </button>
-        </div>
-    </div>
+		<!-- Game section -->
+		<div class="game">
+			<button id="start" class="start">Commencer</button>
+			<div class="game-infos">
+				<span class="score">Score : 0</span>
+				<span class="best-score">Best score : 0</span>
+				<span class="time">Temps : 0</span>
+			</div>
 
-    <!-- Game section -->
-    <div class="game">
-        <button id="start" class="start">Commencer</button>
-        <div class="game-infos">
-            <span class="score">Score : 0</span>
-            <span class="best-score">Best score : 0</span>
-            <span class="time">Temps : 0</span>
-        </div>
+			<!-- Difficulty level selection -->
+			<div class="difficulty-selection">
+				<h3>Sélectionnez la difficulté</h3>
+				<button id="chiquito" class="difficulty-btn">
+					¡Chiquito!
+				</button>
+				<button id="valiente" class="difficulty-btn">
+					¡Valiente!
+				</button>
+				<button id="luchador" class="difficulty-btn">
+					¡Luchador!
+				</button>
+			</div>
 
-        <!-- Difficulty level selection -->
-        <div class="difficulty-selection">
-            <h3>Sélectionnez la difficulté</h3>
-            <button id="chiquito" class="difficulty-btn">
-                ¡Chiquito!
-            </button>
-            <button id="valiente" class="difficulty-btn">
-                ¡Valiente!
-            </button>
-            <button id="luchador" class="difficulty-btn">
-                ¡Luchador!
-            </button>
-        </div>
+			<div class="container">
+				<canvas id="game-canva" width="500" height="400"></canvas>
+			</div>
+		</div>
 
-        <div class="container">
-            <canvas id="game-canva" width="500" height="400"></canvas>
-        </div>
-    </div>
-
-    <!-- Information Section -->
-    <div class="info">
-        <h2>Information</h2>
-        <p>
-            Le but du jeu est de cliquer sur les objets qui apparaissent à
-            l'écran. Chaque clic vous rapporte des points. Attention, si
-            vous cliquez sur un cactus, vous perdez des points. Le jeu se
-            termine au bout de 30 secondes. Bonne chance !
-        </p>
-        <figure>
-            <img src="images/pinata.png" alt="Pinata" />
-            <figcaption>Pinata: + 1 point</figcaption>
-        </figure>
-        <figure>
-            <img src="images/calavera.png" alt="Calavera" />
-            <figcaption>Calavera: + 5 points</figcaption>
-        </figure>
-        <figure>
-            <img src="images/cactus.png" alt="Cactus" />
-            <figcaption>Cactus: -2 points</figcaption>
-        </figure>
-    </div>
-</body>
-
+		<!-- Information Section -->
+		<div class="info">
+			<h2>Information</h2>
+			<p>
+				Le but du jeu est de cliquer sur les objets qui apparaissent à
+				l'écran. Chaque clic vous rapporte des points. Attention, si
+				vous cliquez sur un cactus, vous perdez des points. Le jeu se
+				termine au bout de 30 secondes. Bonne chance !
+			</p>
+			<figure>
+				<img src="images/pinata.png" alt="Pinata" />
+				<figcaption>Pinata: + 1 point</figcaption>
+			</figure>
+			<figure>
+				<img src="images/calavera.png" alt="Calavera" />
+				<figcaption>Calavera: + 5 points</figcaption>
+			</figure>
+			<figure>
+				<img src="images/cactus.png" alt="Cactus" />
+				<figcaption>Cactus: -2 points</figcaption>
+			</figure>
+		</div>
+	</body>
 </html>
